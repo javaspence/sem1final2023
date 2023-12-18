@@ -3,6 +3,7 @@ import turtle as trtl
 import time
 import random
 import keyboard
+from death import Death
 
 #sets up turtles
 painter = trtl.Turtle()
@@ -123,8 +124,55 @@ def clicked(x, y):
         happiness = happiness - 10
         happinesstext.clear()
         happinesstext.write(f'Happiness: {happiness}', font=("Verdana", 15, "normal"))
-
-
+  if (int(health) < 0) == True:
+    #if heavenly < 0:
+      #Death.hell()
+    if heavenly > 0:
+      painter.hideturtle()
+      clicker.hideturtle()
+      help.hideturtle()
+      fastfood.hideturtle()
+      text.hideturtle()
+      moneytext.hideturtle()
+      heavenlytext.hideturtle()
+      heavenlytext2.hideturtle()
+      yearstext.hideturtle()
+      healthtext.hideturtle()
+      happinesstext.hideturtle()
+      medicine.hideturtle()
+      sell.hideturtle()
+      text.clear()
+      moneytext.clear()
+      heavenlytext.clear()
+      heavenlytext2.clear()
+      yearstext.clear()
+      healthtext.clear()
+      happinesstext.clear()
+      Death.heaven()
+  if (int(happiness) < 0) == True:
+      print('test')
+      if heavenly > 0:
+        painter.hideturtle()
+        clicker.hideturtle()
+        help.hideturtle()
+        fastfood.hideturtle()
+        text.hideturtle()
+        moneytext.hideturtle()
+        heavenlytext.hideturtle()
+        heavenlytext2.hideturtle()
+        yearstext.hideturtle()
+        healthtext.hideturtle()
+        happinesstext.hideturtle()
+        medicine.hideturtle()
+        sell.hideturtle()
+        text.clear()
+        moneytext.clear()
+        heavenlytext.clear()
+        heavenlytext2.clear()
+        yearstext.clear()
+        healthtext.clear()
+        happinesstext.clear()
+        Death.heaven()
 
 
 def helpclicked(x, y):
@@ -218,5 +266,6 @@ keyboard.on_press_key("space", lambda _:clicked(0, 0))
         #winsound.PlaySound('Yuno Miles - First Day Of Christmas (Official Video) (Prod.YunoMarr) (1).wav', winsound.SND_ASYNC)
     #else:
         #winsound.PlaySound('Yuno Miles - Indiana Jones (Official Video).wav', winsound.SND_ASYNC)
+
 
 screen.mainloop()
