@@ -4,8 +4,11 @@ import time
 fire = turtle.Turtle()
 wn = turtle.Screen()
 wn.addshape('pictures/Fire.gif')
+fire.penup()
+fire.goto(0, -500)
 fire.shape('pictures/Fire.gif')
 trey = turtle.Turtle()
+trey.shape('pictures/Trey.gif')
 '''
 class Death():
     def __init__(self):
