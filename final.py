@@ -390,11 +390,5 @@ fastfood.onclick(fastfoodclicked)
 movies.onclick(moviesclicked)
 freshfood.onclick(freshfoodclicked)
 keyboard.on_press_key("space", lambda _:clicked(0, 0))
-#for song in range(2):
-    #if song == 1:
-        #winsound.PlaySound('Yuno Miles - First Day Of Christmas (Official Video) (Prod.YunoMarr) (1).wav', winsound.SND_ASYNC)
-    #else:
-        #winsound.PlaySound('Yuno Miles - Indiana Jones (Official Video).wav', winsound.SND_ASYNC)
-
 
 screen.mainloop()
