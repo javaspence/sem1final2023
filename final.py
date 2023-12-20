@@ -4,6 +4,7 @@ import time
 import random
 import keyboard
 from death import Death
+import threading
 
 #sets up turtles
 painter = trtl.Turtle()
@@ -20,6 +21,8 @@ happinesstext = trtl.Turtle()
 medicine = trtl.Turtle()
 sell = trtl.Turtle()
 movies = trtl.Turtle()
+freshfood = trtl.Turtle()
+notiftext = trtl.Turtle()
 screen = trtl.Screen()
 
 screen.setup(1040, 850)
@@ -34,11 +37,15 @@ screen.addshape('pictures/Medicine.gif')
 screen.addshape('pictures/fastfood.gif')
 screen.addshape('pictures/Movies.gif')
 screen.addshape('pictures/NoMovies.gif')
+screen.addshape('pictures/freshfood.gif')
 
 #set up text, help, etc.
 text.penup()
 text.hideturtle()
 text.goto(-55, 330)
+notiftext.penup()
+notiftext.hideturtle()
+notiftext.goto(-55, 360)
 moneytext.penup()
 moneytext.hideturtle()
 moneytext.goto(-55, 300)
@@ -78,8 +85,12 @@ fastfood.goto(-300, 150)
 fastfood.shape('pictures/fastfood.gif')
 movies.penup()
 movies.hideturtle()
-movies.goto(-300, 0)
+movies.goto(-300, 50)
 movies.shape('pictures/Movies.gif')
+freshfood.penup()
+freshfood.hideturtle()
+freshfood.goto(-300, -50)
+freshfood.shape('pictures/freshfood.gif')
 
 
 def introstart(x, y):
@@ -97,6 +108,7 @@ def introstart(x, y):
   clicker.showturtle()
   fastfood.showturtle()
   movies.showturtle()
+  freshfood.showturtle()
 
 painter.goto(0,0)
 painter.shape('pictures/Intro1.gif')
@@ -118,9 +130,6 @@ def clicked(x, y):
   global presents, presentscounter, years, health, healthsubtractor, happiness, moviescounter, banmovies
   presents = presents + 1
   presentscounter = presentscounter + 1
-  if moviescounter == 3:
-    banmovies == True
-    movies.shape('pictures/NoMovies.gif')
   text.clear()
   text.goto(-55, 330)
   text.write(f'Presents: {presents}', font=("Verdana", 15, "normal"))
@@ -129,7 +138,7 @@ def clicked(x, y):
     presentscounter = 0
     movies.shape('pictures/Movies.gif')
     moviescounter = 0
-    banmovies == False
+    banmovies = False
     yearstext.clear()
     yearstext.write(f'Years: {years}', font=("Verdana", 15, "normal"))
     if years >= 18:
@@ -159,6 +168,7 @@ def clicked(x, y):
       medicine.hideturtle()
       sell.hideturtle()
       movies.hideturtle()
+      freshfood.hideturtle()
       text.clear()
       moneytext.clear()
       heavenlytext.clear()
@@ -182,6 +192,7 @@ def clicked(x, y):
       medicine.hideturtle()
       sell.hideturtle()
       movies.hideturtle()
+      freshfood.hideturtle()
       text.clear()
       moneytext.clear()
       heavenlytext.clear()
@@ -207,6 +218,7 @@ def clicked(x, y):
         medicine.hideturtle()
         sell.hideturtle()
         movies.hideturtle()
+        freshfood.hideturtle()
         text.clear()
         moneytext.clear()
         heavenlytext.clear()
@@ -230,6 +242,7 @@ def clicked(x, y):
         medicine.hideturtle()
         sell.hideturtle()
         movies.hideturtle()
+        freshfood.hideturtle()
         text.clear()
         moneytext.clear()
         heavenlytext.clear()
@@ -300,6 +313,9 @@ def medicineclicked(x, y):
         health = 100
     healthtext.clear()
     healthtext.write(f'Health: {health}', font=("Verdana", 15, "normal"))
+  else:
+      t1 = threading.Thread(target = nomoneynotif)
+      t1.start()
 
 def fastfoodclicked(x, y):
   global money, heavenly, health, happiness
@@ -316,11 +332,14 @@ def fastfoodclicked(x, y):
     health = health - 5
     healthtext.clear()
     healthtext.write(f'Health: {health}', font=("Verdana", 15, "normal"))
+  else:
+      t1 = threading.Thread(target = nomoneynotif)
+      t1.start()
 
 def moviesclicked(x, y):
   global money, heavenly, happiness, banmovies, moviescounter
   if moviescounter == 3:
-    banmovies == True
+    banmovies = True
     movies.shape('pictures/NoMovies.gif')
   if banmovies == False:
     if money >= 30:
@@ -334,6 +353,31 @@ def moviesclicked(x, y):
         happiness = 100
       happinesstext.clear()
       happinesstext.write(f'Happiness: {happiness}', font=("Verdana", 15, "normal"))
+    else:
+      t1 = threading.Thread(target = nomoneynotif)
+      t1.start()
+
+def freshfoodclicked(x, y):
+  global money, heavenly, health, happiness
+  if money >= 50:
+    money = money - 50
+    moneytext.goto(-55, 300)
+    moneytext.clear()
+    moneytext.write(f'Money: {money}', font=("Verdana", 15, "normal"))
+    happiness = happiness - 5
+    happinesstext.clear()
+    happinesstext.write(f'Happiness: {happiness}', font=("Verdana", 15, "normal"))
+    health = health + 10
+    healthtext.clear()
+    healthtext.write(f'Health: {health}', font=("Verdana", 15, "normal"))
+  else:
+      t1 = threading.Thread(target = nomoneynotif)
+      t1.start()
+
+def nomoneynotif():
+  notiftext.write('Not enough money!', font=("Verdana", 15, "normal"))
+  time.sleep(2)
+  notiftext.clear()
   
 
 
@@ -344,6 +388,7 @@ sell.onclick(sellclicked)
 medicine.onclick(medicineclicked)
 fastfood.onclick(fastfoodclicked)
 movies.onclick(moviesclicked)
+freshfood.onclick(freshfoodclicked)
 keyboard.on_press_key("space", lambda _:clicked(0, 0))
 #for song in range(2):
     #if song == 1:
