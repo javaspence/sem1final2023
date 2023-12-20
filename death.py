@@ -1,15 +1,6 @@
 import turtle
 import time
 
-fire = turtle.Turtle()
-wn = turtle.Screen()
-wn.addshape('pictures/Fire.gif')
-fire.penup()
-fire.goto(0, -500)
-fire.shape('pictures/Fire.gif')
-trey = turtle.Turtle()
-trey.shape('pictures/Trey.gif')
-'''
 class Death():
     def __init__(self):
         self = self
@@ -73,4 +64,47 @@ class Death():
             clicker.onclick(clickerclicked)
         suitcase.onclick(suitcaseclicked)
         wn.mainloop()
-'''
+    def Hell():
+        #creates background
+        fire = turtle.Turtle()
+        wn = turtle.Screen()
+        wn.addshape('pictures/Fire.gif')
+        fire.penup()
+        fire.shape('pictures/Fire.gif')
+
+        #creates the Devil
+        wn.addshape('pictures/Trey1.gif')
+        trey = turtle.Turtle()
+        trey.penup()
+        trey.goto(0, 100)
+        trey.shape('pictures/Trey1.gif')
+
+        #creates captions
+        text = turtle.Turtle()
+        text.hideturtle()
+        text.penup()
+        text.goto(-225, -300)
+        text.color('white')
+        text.write(f'How dare you be in my sight!', font=("Times New Roman", 30, "normal"))
+        time.sleep(5)
+        text.clear()
+        text.write(f'You want to know why you are here?', font=("Times New Roman", 30, "normal"))
+        time.sleep(5)
+        text.clear()
+        text.write(f'Well, I think it is pretty obvious...', font=("Times New Roman", 30, "normal"))
+        time.sleep(5)
+        text.clear()
+        text.goto(-325, -300)
+        text.write(f'You have angered the "higher power" with your sinister behavior!', font=("Times New Roman", 20, "normal"))
+        time.sleep(5)
+        text.clear()
+        text.goto(-225, -300)
+        text.write(f'AND NOW, I GET TO TORTURE YOU!!!', font=("Times New Roman", 30, "normal"))
+        time.sleep(2)
+        text.clear()
+        text.write(f'HA HA HA!!!!', font=("Times New Roman", 30, "normal"))
+        for size in range(10):
+            realsize = size * 50
+            wn.setup(1040 - realsize, 850 - realsize)
+            time.sleep(1)
+        wn.bye()
