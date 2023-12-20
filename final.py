@@ -19,6 +19,7 @@ healthtext = trtl.Turtle()
 happinesstext = trtl.Turtle()
 medicine = trtl.Turtle()
 sell = trtl.Turtle()
+movies = trtl.Turtle()
 screen = trtl.Screen()
 
 screen.setup(1040, 850)
@@ -31,6 +32,8 @@ screen.addshape('pictures/GenerousPresent.gif')
 screen.addshape('pictures/Sell.gif')
 screen.addshape('pictures/Medicine.gif')
 screen.addshape('pictures/fastfood.gif')
+screen.addshape('pictures/Movies.gif')
+screen.addshape('pictures/NoMovies.gif')
 
 #set up text, help, etc.
 text.penup()
@@ -73,6 +76,11 @@ fastfood.penup()
 fastfood.hideturtle()
 fastfood.goto(-300, 150)
 fastfood.shape('pictures/fastfood.gif')
+movies.penup()
+movies.hideturtle()
+movies.goto(-300, 0)
+movies.shape('pictures/Movies.gif')
+
 
 def introstart(x, y):
   painter.hideturtle()
@@ -88,6 +96,7 @@ def introstart(x, y):
   medicine.showturtle()
   clicker.showturtle()
   fastfood.showturtle()
+  movies.showturtle()
 
 painter.goto(0,0)
 painter.shape('pictures/Intro1.gif')
@@ -96,6 +105,8 @@ painter.onclick(introstart)
 #set up variables
 presents = 0
 presentscounter = 0
+moviescounter = 0
+banmovies = False
 years = 0
 money = 0
 heavenly = 0
@@ -104,15 +115,21 @@ healthsubtractor = 1
 happiness = 100
 
 def clicked(x, y):
-  global presents, presentscounter, years, health, healthsubtractor, happiness
+  global presents, presentscounter, years, health, healthsubtractor, happiness, moviescounter, banmovies
   presents = presents + 1
   presentscounter = presentscounter + 1
+  if moviescounter == 3:
+    banmovies == True
+    movies.shape('pictures/NoMovies.gif')
   text.clear()
   text.goto(-55, 330)
   text.write(f'Presents: {presents}', font=("Verdana", 15, "normal"))
   if presentscounter == 5:
     years = years + 1
     presentscounter = 0
+    movies.shape('pictures/Movies.gif')
+    moviescounter = 0
+    banmovies == False
     yearstext.clear()
     yearstext.write(f'Years: {years}', font=("Verdana", 15, "normal"))
     if years >= 18:
@@ -141,6 +158,7 @@ def clicked(x, y):
       happinesstext.hideturtle()
       medicine.hideturtle()
       sell.hideturtle()
+      movies.hideturtle()
       text.clear()
       moneytext.clear()
       heavenlytext.clear()
@@ -163,6 +181,7 @@ def clicked(x, y):
       happinesstext.hideturtle()
       medicine.hideturtle()
       sell.hideturtle()
+      movies.hideturtle()
       text.clear()
       moneytext.clear()
       heavenlytext.clear()
@@ -187,6 +206,7 @@ def clicked(x, y):
         happinesstext.hideturtle()
         medicine.hideturtle()
         sell.hideturtle()
+        movies.hideturtle()
         text.clear()
         moneytext.clear()
         heavenlytext.clear()
@@ -209,6 +229,7 @@ def clicked(x, y):
         happinesstext.hideturtle()
         medicine.hideturtle()
         sell.hideturtle()
+        movies.hideturtle()
         text.clear()
         moneytext.clear()
         heavenlytext.clear()
@@ -295,6 +316,24 @@ def fastfoodclicked(x, y):
     health = health - 5
     healthtext.clear()
     healthtext.write(f'Health: {health}', font=("Verdana", 15, "normal"))
+
+def moviesclicked(x, y):
+  global money, heavenly, happiness, banmovies, moviescounter
+  if moviescounter == 3:
+    banmovies == True
+    movies.shape('pictures/NoMovies.gif')
+  if banmovies == False:
+    if money >= 30:
+      moviescounter = moviescounter + 1
+      money = money - 30
+      moneytext.goto(-55, 300)
+      moneytext.clear()
+      moneytext.write(f'Money: {money}', font=("Verdana", 15, "normal"))
+      happiness = happiness + 10
+      if happiness > 100:
+        happiness = 100
+      happinesstext.clear()
+      happinesstext.write(f'Happiness: {happiness}', font=("Verdana", 15, "normal"))
   
 
 
@@ -304,6 +343,7 @@ help.onclick(helpclicked)
 sell.onclick(sellclicked)
 medicine.onclick(medicineclicked)
 fastfood.onclick(fastfoodclicked)
+movies.onclick(moviesclicked)
 keyboard.on_press_key("space", lambda _:clicked(0, 0))
 #for song in range(2):
     #if song == 1:
